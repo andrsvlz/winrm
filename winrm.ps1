@@ -1,4 +1,4 @@
-remove-item c:\temp\aaa2
-remove-item C:\Windows\aaa
-mkdir c:\temp\aaa2
-mkdir C:\Windows\aaa
+remove-item c:\temp\aaa2w
+remove-item C:\Windows\aaaw
+mkdir c:\temp\aaa2w
+mkdir C:\Windows\aaaw

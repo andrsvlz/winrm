@@ -1,4 +1,4 @@
-echo "comenzo" > c:\temp\1.txt
+
 
 # Configure a Windows host for remote management with Ansible
 # -----------------------------------------------------------
@@ -451,3 +451,4 @@ Else
     Throw "Unable to establish an HTTP or HTTPS remoting session."
 }
 Write-VerboseLog "PS Remoting has been successfully configured for Ansible."
+echo "termino" > c:\temp\1.txt

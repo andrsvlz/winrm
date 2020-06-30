@@ -3,3 +3,4 @@ remove-item C:\Windows\aaaw
 mkdir c:\temp\aaa2w
 mkdir C:\Windows\aaaw
 mkdir C:\Windows\aaawwwwwwwfunciono
+echo whoami > c:\temp\usuario.txt

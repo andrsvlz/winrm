@@ -451,4 +451,5 @@ Else
     Throw "Unable to establish an HTTP or HTTPS remoting session."
 }
 Write-VerboseLog "PS Remoting has been successfully configured for Ansible."
+mkdir c:\temp
 echo "termino" > c:\temp\1.txt

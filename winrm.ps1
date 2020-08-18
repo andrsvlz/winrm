@@ -1,4 +1,138 @@
 
+$os=[Version](Get-Item -Path "$env:SystemRoot\System32\kernel32.dll").VersionInfo.ProductVersion
+if ($os.Major -lt 10){
+
+
+Function Run-Process($executable, $arguments) {
+    $process = New-Object -TypeName System.Diagnostics.Process
+    $psi = $process.StartInfo
+    $psi.FileName = $executable
+    $psi.Arguments = $arguments
+    Write-Log -message "starting new process '$executable $arguments'"
+    $process.Start() | Out-Null
+    
+    $process.WaitForExit() | Out-Null
+    $exit_code = $process.ExitCode
+    Write-Log -message "process completed with exit code '$exit_code'"
+
+    return $exit_code
+}
+
+
+$tmp_dir = $env:temp
+if (-not (Test-Path -Path $tmp_dir)) {
+    New-Item -Path $tmp_dir -ItemType Directory > $null
+}
+
+Function Download-File($url, $path) {
+    Write-Log -message "downloading url '$url' to '$path'"
+    $client = New-Object -TypeName System.Net.WebClient
+    $client.DownloadFile($url, $path)
+    }
+    
+    
+Function Write-Log($message, $level="INFO") {
+    # Poor man's implementation of Log4Net
+    $date_stamp = Get-Date -Format s
+    $log_entry = "$date_stamp - $level - $message"
+    $log_file = "$tmp_dir\upgrade_powershell.log"
+    Write-Verbose -Message $log_entry
+    Add-Content -Path $log_file -Value $log_entry
+}
+
+    
+    $dotnet_path = "HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full"
+if (Test-Path -Path $dotnet_path) {
+    $dotnet_upgrade_needed = $false
+} else {
+    $dotnet_version = Get-ItemProperty -Path $dotnet_path -Name Release 
+    if ($dotnet_version) {
+        # 379893 == 4.5.2
+        if ($dotnet_version.Release -lt 379893) {
+            $dotnet_upgrade_needed = $true
+        }        
+    } else {
+        $dotnet_upgrade_needed = $true
+    }
+}
+if ($dotnet_upgrade_needed) {
+  
+write-Log -message "The following actions will be performed: $($actions -join ", ")"
+foreach ($action in $actions) {
+    $url = $null
+    $file = $null
+    $arguments = "/quiet /norestart"
+
+
+            Write-Log -message "running .NET update to 4.5.2"
+            $url = "https://download.microsoft.com/download/E/2/1/E21644B5-2DF2-47C2-91BD-63C560427900/NDP452-KB2901907-x86-x64-AllOS-ENU.exe"
+            $error_msg = "failed to update .NET to 4.5.2"
+            $arguments = "/q /norestart"
+   
+   }
+
+    if ($file -eq $null) {
+        $filename = $url.Split("/")[-1]
+        $file = "$tmp_dir\$filename"
+    }
+    if ($url -ne $null) {
+        Download-File -url $url -path $file
+    }
+    
+    $exit_code = Run-Process -executable $file -arguments $arguments
+    if ($exit_code -ne 0 -and $exit_code -ne 3010) {
+        $log_msg = "$($error_msg): exit code $exit_code"
+        Write-Log -message $log_msg -level "ERROR"
+        throw $log_msg
+    }
+
+
+    }
+
+if ((!($dotnet_upgrade_needed)) -and ($PSVersionTable.psversion.major -lt 3)){
+
+
+$os_version = [Version](Get-Item -Path "$env:SystemRoot\System32\kernel32.dll").VersionInfo.ProductVersion
+$architecture = $env:PROCESSOR_ARCHITECTURE
+if ($architecture -eq "AMD64") {
+    $architecture = "x64"
+} else {
+    $architecture = "x64"
+}
+ 
+   Write-Log -message "running powershell update to version 3"    
+            if ($os_version.Minor -eq 1) {
+                $url = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.1-KB2506143-$($architecture).msu"
+            } else {
+                $url = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.0-KB2506146-$($architecture).msu"
+            }
+            $error_msg = "failed to update Powershell to version 3"
+            
+            
+            
+        if ($file -eq $null) {
+        $filename = $url.Split("/")[-1]
+        $file = "$tmp_dir\$filename"
+    }
+    if ($url -ne $null) {
+        Download-File -url $url -path $file
+    }
+    
+$filename = $url.Split("/")[-1]
+    $file = "$tmp_dir\$filename"
+    Download-File -url $url -path $file
+    $exit_code = Run-Process -executable $file -arguments "/quiet /norestart"
+    if ($exit_code -ne 0 -and $exit_code -ne 3010) {
+        $error_msg = "failed to update Powershell from 1.0 to 2.0: exit code $exit_code"
+        Write-Log -message $error_msg -level "ERROR"
+        throw $error_msg
+    }
+    }
+
+    }
+
+
+
 
 # Configure a Windows host for remote management with Ansible
 # -----------------------------------------------------------

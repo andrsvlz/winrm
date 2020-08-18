@@ -137,7 +137,7 @@ foreach ($action in $actions) {
 
 
             Write-Log -message "running .NET update to 4.5.2"
-            $url = "https://download.microsoft.com/download/E/2/1/E21644B5-2DF2-47C2-91BD-63C560427900/NDP452-KB2901907-x86-x64-AllOS-ENU.exe"
+            $url = "https://download.microsoft.com/download/6/E/4/6E48E8AB-DC00-419E-9704-06DD46E5F81D/NDP472-KB4054530-x86-x64-AllOS-ENU.exe"
             $error_msg = "failed to update .NET to 4.5.2"
             $arguments = "/q /norestart"
    

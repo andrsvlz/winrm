@@ -172,13 +172,13 @@ if ($architecture -eq "AMD64") {
     $architecture = "x64"
 }
  
-   Write-Log -message "running powershell update to version 3"    
+   Write-Log -message "running powershell update to version 5"    
             if ($os_version.Minor -eq 1) {
-                $url = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.1-KB2506143-$($architecture).msu"
+                $url = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7AndW2K8R2-KB3134760-x64.msu"
             } else {
-                $url = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.0-KB2506146-$($architecture).msu"
+                $url = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7AndW2K8R2-KB3134760-x64.msu"
             }
-            $error_msg = "failed to update Powershell to version 3"
+            $error_msg = "failed to update Powershell to version 5"
             
             
             

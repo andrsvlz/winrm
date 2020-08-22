@@ -161,7 +161,7 @@ foreach ($action in $actions) {
 
     }
 
-if ((!($dotnet_upgrade_needed)) -and ($PSVersionTable.psversion.major -lt 3)){
+if ((!($dotnet_upgrade_needed)) -and ($PSVersionTable.psversion.major -lt 4)){
 
 
 $os_version = [Version](Get-Item -Path "$env:SystemRoot\System32\kernel32.dll").VersionInfo.ProductVersion

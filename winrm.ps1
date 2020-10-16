@@ -138,7 +138,9 @@ foreach ($action in $actions) {
 
             Write-Log -message "running .NET update to 4.5.2"
             $url = "https://download.microsoft.com/download/6/E/4/6E48E8AB-DC00-419E-9704-06DD46E5F81D/NDP472-KB4054530-x86-x64-AllOS-ENU.exe"
-            $error_msg = "failed to update .NET to 4.5.2"
+            $error_msg = "
+            
+            to update .NET to 4.5.2"
             $arguments = "/q /norestart"
    
    }
@@ -176,7 +178,7 @@ if ($architecture -eq "AMD64") {
             if ($os_version.Minor -eq 1) {
                 $url = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7AndW2K8R2-KB3134760-x64.msu"
             } else {
-                $url = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7AndW2K8R2-KB3134760-x64.msu"
+                $url = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7-KB3134760-x86.msu"
             }
             $error_msg = "failed to update Powershell to version 5"
             

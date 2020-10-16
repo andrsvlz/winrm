@@ -176,7 +176,7 @@ if ($architecture -eq "AMD64") {
  
    Write-Log -message "running powershell update to version 5"    
             if ($os_version.Minor -eq 1) {
-                $url = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7AndW2K8R2-KB3134760-x64.msu"
+                $url = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7-KB3134760-x86.msu"
             } else {
                 $url = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7-KB3134760-x86.msu"
             }
@@ -197,7 +197,7 @@ $filename = $url.Split("/")[-1]
     Download-File -url $url -path $file
     $exit_code = Run-Process -executable $file -arguments "/quiet /norestart"
     if ($exit_code -ne 0 -and $exit_code -ne 3010) {
-        $error_msg = "failed to update Powershell from 1.0 to 2.0: exit code $exit_code"
+        $error_msg = "failed to update Powershell  exit code $exit_code"
         Write-Log -message $error_msg -level "ERROR"
         throw $error_msg
     }

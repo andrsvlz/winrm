@@ -176,7 +176,7 @@ if ($architecture -eq "AMD64") {
  
    Write-Log -message "running powershell update to version 5"    
             if ($os_version.Minor -eq 1) {
-                $url = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7-KB3134760-x86.msu"
+                $url = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7-KB3134760-x64.msu"
             } else {
                 $url = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7-KB3134760-x86.msu"
             }

@@ -573,7 +573,24 @@ Else
 {
     Write-Verbose "Firewall rule already exists to allow WinRM HTTPS."
 }
+$thumbprint = New-LegacySelfSignedCert -SubjectName $SubjectName -ValidDays $CertValidityDays
+        Write-HostLog "Self-signed SSL certificate generated; thumbprint: $thumbprint"
 
+        $valueset = @{
+            CertificateThumbprint = $thumbprint
+            Hostname = $SubjectName
+        }
+
+        # Delete the listener for SSL
+        $selectorset = @{
+            Address = "*"
+            Transport = "HTTPS"
+        }
+        Remove-WSManInstance -ResourceURI 'winrm/config/Listener' -SelectorSet $selectorset
+
+        # Add new Listener with new SSL cert
+        New-WSManInstance -ResourceURI 'winrm/config/Listener' -SelectorSet $selectorset -ValueSet $valueset
+        
 # Test a remoting connection to localhost, which should work.
 $httpResult = Invoke-Command -ComputerName "localhost" -ScriptBlock {$env:COMPUTERNAME} -ErrorVariable httpError -ErrorAction SilentlyContinue
 $httpsOptions = New-PSSessionOption -SkipCACheck -SkipCNCheck -SkipRevocationCheck
